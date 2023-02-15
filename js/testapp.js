@@ -166,7 +166,7 @@ function renderAll() {
   let footerRow = document.createElement('tr');
   table.appendChild(footerRow);
   let footerCell1 = document.createElement('th');
-  footerCell1.textContent = 'Hourly Totals';
+  footerCell1.textContent = 'Company Wide';
   footerRow.appendChild(footerCell1);
   let hourlyTotals = storeTable[0].hourlyTotals();
   let dailyTotal = 0;
