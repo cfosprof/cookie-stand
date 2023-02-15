@@ -108,23 +108,25 @@ storeTable.push(seattle, tokyo, dubai, paris, lima);
 console.log(storeTable);
 
 function renderAll() {
+  //appends table to parent
   let table = document.createElement('table');
   parentElement.appendChild(table);
 
+  //create and append new header table row element
   let headerRow = document.createElement('tr');
   table.appendChild(headerRow);
   
-  //merging cities into single table
+  //new header cell element for city
   let headerCell1 = document.createElement('th');
   headerCell1.textContent = 'City';
   headerRow.appendChild(headerCell1);
-
+  //this is where we iterate the hours array and append them along city
   for (let i = 0; i < hours.length; i++) {
     let headerCell2 = document.createElement('th');
     headerCell2.textContent = hours[i];
     headerRow.appendChild(headerCell2);
   }
-
+  //generate cookies for each hour for each store in the store table and data rows for the data
   for (let i = 0; i < storeTable.length; i++) {
     storeTable[i].generateCookies();
     let dataRow = document.createElement('tr');
