@@ -129,7 +129,6 @@ function renderAll() {
   //create and append new header table row element
   let headerRow = document.createElement('tr');
   table.appendChild(headerRow);
-  
   //new header cell element for city
   let headerCell1 = document.createElement('th');
   headerCell1.textContent = 'City';
