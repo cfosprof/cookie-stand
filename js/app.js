@@ -39,6 +39,17 @@ Store.prototype.generateCookies = function() {
   }
 };
 
+Store.prototype.hourlyTotals = function() {
+  let hourlyTotals = new Array(this.hours.length).fill(0);
+  for (let i = 0; i < storeTable.length; i++) {
+    let store = storeTable[i];
+    for (let j = 0; j < store.hours.length; j++) {
+      hourlyTotals[j] += store.cookiesSoldPerHour[j];
+    }
+  }
+  return hourlyTotals;
+};
+
 //creates the html table element and appends it to the article element which has been appended to the parent element
 Store.prototype.render = function(){
   let article = document.createElement('article');
@@ -72,7 +83,9 @@ Store.prototype.render = function(){
     headerCell2.textContent = this.hours[i];
     headerRow.appendChild(headerCell2);
   }
-
+  // let footer = document.createElement('th');
+  // footer.textContent = 'total';
+  // headerRow.appendChild(footer);
   //creating data row for citys row
   let dataRow = document.createElement('tr');
   table.appendChild(dataRow);
@@ -107,29 +120,31 @@ storeTable.push(seattle, tokyo, dubai, paris, lima);
 
 console.log(storeTable);
 
+
 function renderAll() {
+  //appends table to parent
   let table = document.createElement('table');
   parentElement.appendChild(table);
 
+  //create and append new header table row element
   let headerRow = document.createElement('tr');
   table.appendChild(headerRow);
   
-  //merging cities into single table
+  //new header cell element for city
   let headerCell1 = document.createElement('th');
   headerCell1.textContent = 'City';
   headerRow.appendChild(headerCell1);
-
+  //this is where we iterate the hours array and append them along city
   for (let i = 0; i < hours.length; i++) {
     let headerCell2 = document.createElement('th');
     headerCell2.textContent = hours[i];
     headerRow.appendChild(headerCell2);
   }
-
+  //generate cookies for each hour for each store in the store table and data rows for the data
   for (let i = 0; i < storeTable.length; i++) {
     storeTable[i].generateCookies();
     let dataRow = document.createElement('tr');
     table.appendChild(dataRow);
-
     let dataCell1 = document.createElement('td');
     dataCell1.textContent = storeTable[i].name;
     dataRow.appendChild(dataCell1);
@@ -139,8 +154,33 @@ function renderAll() {
       dataCell2.textContent = storeTable[i].cookiesSoldPerHour[j];
       dataRow.appendChild(dataCell2);
     }
+    let dataCell3 = document.createElement('td');
+    dataCell3.textContent = storeTable[i].dailySoldTotal;
+    dataRow.appendChild(dataCell3);
+    console.log(storeTable[i]);
   }
+  let headerCell3 = document.createElement('th');
+  headerCell3.textContent = 'Daily Total';
+  headerRow.appendChild(headerCell3);
+
+  let footerRow = document.createElement('tr');
+  table.appendChild(footerRow);
+  let footerCell1 = document.createElement('th');
+  footerCell1.textContent = 'Hourly Totals';
+  footerRow.appendChild(footerCell1);
+  let hourlyTotals = storeTable[0].hourlyTotals();
+  let dailyTotal = 0;
+  for (let i = 0; i < hourlyTotals.length; i++) {
+    let footerCell2 = document.createElement('th');
+    footerCell2.textContent = hourlyTotals[i];
+    footerRow.appendChild(footerCell2);
+    dailyTotal += hourlyTotals[i];
+  }
+  let footerCell3 = document.createElement('th');
+  footerCell3.textContent = dailyTotal;
+  footerRow.appendChild(footerCell3);
+
 }
 
 
-renderAll()
+renderAll();

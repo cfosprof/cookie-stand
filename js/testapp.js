@@ -38,6 +38,18 @@ Store.prototype.generateCookies = function() {
     this.dailySoldTotal += cookiesForHour;
   }
 };
+
+Store.prototype.hourlyTotals = function() {
+  let hourlyTotals = new Array(this.hours.length).fill(0);
+  for (let i = 0; i < storeTable.length; i++) {
+    let store = storeTable[i];
+    for (let j = 0; j < store.hours.length; j++) {
+      hourlyTotals[j] += store.cookiesSoldPerHour[j];
+    }
+  }
+  return hourlyTotals;
+};
+
 //creates the html table element and appends it to the article element which has been appended to the parent element
 Store.prototype.render = function(){
   let article = document.createElement('article');
@@ -108,15 +120,6 @@ storeTable.push(seattle, tokyo, dubai, paris, lima);
 
 console.log(storeTable);
 
-let footer = createElement('footer');
-footer.textContent = 'Totals';
-parentElement.appendChild(footer);
-
-function createElement(element) {
-  let newElement = document.createElement(element);
-  parentElement.appendChild(newElement);
-  return newElement;
-}
 
 function renderAll() {
   //appends table to parent
@@ -151,12 +154,32 @@ function renderAll() {
       dataCell2.textContent = storeTable[i].cookiesSoldPerHour[j];
       dataRow.appendChild(dataCell2);
     }
-
     let dataCell3 = document.createElement('td');
     dataCell3.textContent = storeTable[i].dailySoldTotal;
     dataRow.appendChild(dataCell3);
     console.log(storeTable[i]);
   }
+  let headerCell3 = document.createElement('th');
+  headerCell3.textContent = 'Daily Total';
+  headerRow.appendChild(headerCell3);
+
+  let footerRow = document.createElement('tr');
+  table.appendChild(footerRow);
+  let footerCell1 = document.createElement('th');
+  footerCell1.textContent = 'Hourly Totals';
+  footerRow.appendChild(footerCell1);
+  let hourlyTotals = storeTable[0].hourlyTotals();
+  let dailyTotal = 0;
+  for (let i = 0; i < hourlyTotals.length; i++) {
+    let footerCell2 = document.createElement('th');
+    footerCell2.textContent = hourlyTotals[i];
+    footerRow.appendChild(footerCell2);
+    dailyTotal += hourlyTotals[i];
+  }
+  let footerCell3 = document.createElement('th');
+  footerCell3.textContent = dailyTotal;
+  footerRow.appendChild(footerCell3);
+
 }
 
 
