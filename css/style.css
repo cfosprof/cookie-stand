@@ -155,7 +155,27 @@ body{
     color: green;
 
   }
-  footer{
+  footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     background-color: #444;
+    color: #FFB6C1;
     height: 150px;
+    padding: 20px;
+  }
+  
+  footer ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  footer ul li {
+    margin: 5px 0;
+  }
+  
+  footer strong {
+    font-weight: bold;
+    font-size: 1.2em;
   }
