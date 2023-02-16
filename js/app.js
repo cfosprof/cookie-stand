@@ -4,6 +4,8 @@
 // Get the parent element from the DOM
 let parentElement = document.getElementById('CookieStand');
 
+let myForm = document.getElementById('store-form');
+
 // Store all of the store objects in an array
 let storeTable = [];
 
@@ -183,6 +185,26 @@ function renderAll() {
   footerRow.appendChild(footerCell3);
 }
 
+function handleFormSubmit(event){
+  event.preventDefault();
+
+  let storeName = event.target.storeName.value;
+  let maxCustomers = event.target.maxCustomers.value;
+  let minCustomers = event.target.minCustomers.value;
+  let avgCookiesPerCustomer = event.target.avgCookiesPerCustomer.value;
+  let newStore = new Store(storeName, minCustomers, maxCustomers, avgCookiesPerCustomer, hours, 0);
+
+  // Add the new store to the storeTable array
+  storeTable.push(newStore);
+
+  // Remove the existing table and render the sales data as an HTML table for all stores
+  parentElement.innerHTML = '';
+  renderAll();
+
+  myForm.reset();
+}
+
+
 // Create new store objects for Seattle, Tokyo, Dubai, Paris, and Lima
 let seattle = new Store('Seattle', 23, 65, 6.3, hours, 0);
 let tokyo = new Store('Tokyo', 3, 24, 1.2, hours, 0);
@@ -195,3 +217,5 @@ storeTable.push(seattle, tokyo, dubai, paris, lima);
 
 // Render the sales data as an HTML table for all stores
 renderAll();
+
+myForm.addEventListener('submit', handleFormSubmit);
