@@ -1,6 +1,7 @@
 body{
   background-color: #FFB6C1;
   color: #222222;
+  font-family: Arial, Helvetica, sans-serif;
   }
   
   h1 {
@@ -12,6 +13,7 @@ body{
   margin-right: 0;
   font-weight: bold;
   color: #8B0000; 
+  font-family: Georgia, Times, serif;
   }
   
   h2 {
@@ -23,6 +25,7 @@ body{
   margin-right: 0;
   font-weight: bold;
   color: #8B0000;
+  font-family: Georgia, Times, serif;
   }
   
   h3 {
@@ -34,11 +37,15 @@ body{
   margin-right: 0;
   font-weight: bold;
   color: #8B0000;
+  font-family: Georgia, Times, serif;
   }
   
   p {
   padding: 2% 0;
   font-size: 1.2em;
+  height: 300px;
+  overflow: auto;
+  font-family: Georgia, Times, serif;
   }
   
   img {
